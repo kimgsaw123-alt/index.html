@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NÓMADA CONCEPT | Catálogo &amp; Experiencia Oficial</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    :root {
+      --bg-main: #09090b;
+      --bg-card: #121216;
+      --bg-elevated: #19191f;
+      --gold: #d4af37;
+      --gold-light: #f3d576;
+      --gold-dark: #9e7e1b;
+      --text-main: #f4f4f6;
+      --text-muted: #a1a1aa;
+      --border: rgba(212, 175, 55, 0.25);
+      --whatsapp: #25d366;
+      --danger: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding-bottom: 4rem;
+    }
+
+    header {
+      background: linear-gradient(180deg, #15151a 0%, #09090b 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+    }
+
+    .brand-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+    }
+
+    .brand-sub {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      margin-top: 0.25rem;
+    }
+
+    .nav-tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .tab-btn {
+      background: var(--bg-elevated);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      padding: 0.5rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active,
+    .tab-btn:hover {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #09090b;
+      border-color: var(--gold-light);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
+    }
+
+    .section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      border-left: 4px solid var(--gold);
+      padding-left: 0.75rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.35rem;
+      color: var(--gold-light);
+      letter-spacing: 1px;
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+
+    .filter-pill {
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+
+    .filter-pill.active {
+      border-color: var(--gold);
+      color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.12);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--gold);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #1c1c24;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 2.5rem;
+    }
+
+    .card-body {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+      width: fit-content;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.85rem;
+    }
+
+    .card-price {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--gold);
+      margin-bottom: 0.85rem;
+    }
+
+    .btn-wa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      width: 100%;
+      background: var(--whatsapp);
+      color: #052e16;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 0.65rem;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: opacity 0.2s;
+    }
+
+    .btn-wa:hover {
+      opacity: 0.9;
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #09090b;
+      font-weight: 700;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.92rem;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--gold-light);
+      border: 1px solid var(--gold);
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    /* Juegos */
+    .game-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .slot-machine {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+
+    .reel {
+      width: 82px;
+      height: 82px;
+      background: var(--bg-elevated);
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.3rem;
+      box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.8);
+    }
+
+    .envelopes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .envelope {
+      background: linear-gradient(145deg, #1d1a10, #121216);
+      border: 1px solid var(--gold);
+      border-radius: 12px;
+      padding: 1.5rem 0.75rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .envelope:hover {
+      transform: scale(1.03);
+    }
+
+    .envelope-icon {
+      font-size: 2.2rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .result-banner {
+      margin-top: 1rem;
+      padding: 0.85rem;
+      border-radius: 10px;
+      background: rgba(212, 175, 55, 0.14);
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      font-weight: 600;
+      display: none;
+    }
+
+    /* Reseñas */
+    .review-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    .review-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+    }
+
+    .stars {
+      color: var(--gold-light);
+      letter-spacing: 2px;
+      font-size: 0.9rem;
+    }
+
+    /* QR */
+    .qr-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      max-width: 480px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .qr-input {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text-main);
+      margin: 0.85rem 0;
+      font-size: 0.9rem;
+    }
+
+    #qrcode {
+      background: #ffffff;
+      padding: 1rem;
+      border-radius: 12px;
+      display: inline-block;
+      margin: 1rem auto;
+    }
+
+    /* Admin */
+    .admin-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 0.85rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.65rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text-main);
+      font-size: 0.9rem;
+    }
+
+    .admin-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      background: var(--bg-elevated);
+      border-radius: 8px;
+      margin-top: 0.5rem;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .btn-del {
+      background: var(--danger);
+      color: #fff;
+      border: none;
+      padding: 0.4rem 0.7rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+
+    .wa-direct-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand-title">NÓMADA CONCEPT</div>
+    <div class="brand-sub">GAFAS ANTIOQUIA SOL &bull; MODA &amp; ESTILO URBANO</div>
+    <nav class="nav-tabs">
+      <button class="tab-btn active" onclick="showSection('catalogo', this)">Catálogo</button>
+      <button class="tab-btn" onclick="showSection('juegos', this)">Premios &amp; Juegos</button>
+      <button class="tab-btn" onclick="showSection('resenas', this)">Reseñas (9)</button>
+      <button class="tab-btn" onclick="showSection('qr', this)">Código QR</button>
+      <button class="tab-btn" onclick="showSection('admin', this)">Admin</button>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- CATÁLOGO -->
+    <section id="catalogo" class="section active">
+      <div class="wa-direct-grid">
+        <a class="btn-wa" href="https://wa.me/573106047749?text=Hola%20N%C3%B3mada%20Concept,%20quiero%20asesor%C3%ADa%20sobre%20Gafas%20y%20Lentes" target="_blank">
+          🕶️ WhatsApp Gafas Nómada (310 604 7749)
+        </a>
+        <a class="btn-wa" href="https://wa.me/573124148578?text=Hola%20N%C3%B3mada%20Concept,%20quiero%20ver%20el%20cat%C3%A1logo%20de%20Ropas%20y%20Accesorios" target="_blank">
+          👕 WhatsApp Ropas Nómada (312 414 8578)
+        </a>
+      </div>
+
+      <div class="section-header">
+        <h2>CATÁLOGO OFICIAL</h2>
+      </div>
+
+      <div class="filter-bar">
+        <button class="filter-pill active" onclick="filterCatalog('todos', this)">Todos</button>
+        <button class="filter-pill" onclick="filterCatalog('Gafas', this)">Gafas &amp; Óptica</button>
+        <button class="filter-pill" onclick="filterCatalog('Ropa', this)">Ropas &amp; Pijamas</button>
+        <button class="filter-pill" onclick="filterCatalog('Accesorios', this)">Relojes &amp; Gorras</button>
+      </div>
+
+      <div id="catalogGrid" class="grid"></div>
+    </section>
+
+    <!-- JUEGOS Y PREMIOS -->
+    <section id="juegos" class="section">
+      <div class="section-header">
+        <h2>ZONA DE BENEFICIOS Y PREMIOS</h2>
+      </div>
+
+      <div class="game-box">
+        <h3 style="color: var(--gold-light);">🎰 Tragamonedas Nómada</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Gira los rodillos para desbloquear un bono especial en tu compra.</p>
+        <div class="slot-machine">
+          <div class="reel" id="reel1">🕶️</div>
+          <div class="reel" id="reel2">👑</div>
+          <div class="reel" id="reel3">⌚</div>
+        </div>
+        <button class="btn-gold" onclick="spinSlots()">GIRAR RULETA</button>
+        <div id="slotResult" class="result-banner"></div>
+      </div>
+
+      <div class="game-box">
+        <h3 style="color: var(--gold-light);">✉️ Sobres Sorpresa</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Elige uno de los 4 sobres dorados y reclama tu beneficio por WhatsApp.</p>
+        <div class="envelopes-grid">
+          <div class="envelope" onclick="openEnvelope(0)">
+            <div class="envelope-icon">✉️</div>
+            <div>Sobre #1</div>
+          </div>
+          <div class="envelope" onclick="openEnvelope(1)">
+            <div class="envelope-icon">✉️</div>
+            <div>Sobre #2</div>
+          </div>
+          <div class="envelope" onclick="openEnvelope(2)">
+            <div class="envelope-icon">✉️</div>
+            <div>Sobre #3</div>
+          </div>
+          <div class="envelope" onclick="openEnvelope(3)">
+            <div class="envelope-icon">✉️</div>
+            <div>Sobre #4</div>
+          </div>
+        </div>
+        <div id="envelopeResult" class="result-banner"></div>
+      </div>
+    </section>
+
+    <!-- RESEÑAS -->
+    <section id="resenas" class="section">
+      <div class="section-header">
+        <h2>EXPERIENCIAS DE CLIENTES (4.9 / 5.0 ★)</h2>
+      </div>
+      <div id="reviewsGrid" class="grid"></div>
+    </section>
+
+    <!-- GENERADOR QR -->
+    <section id="qr" class="section">
+      <div class="section-header">
+        <h2>GENERADOR DE CÓDIGO QR OFICIAL</h2>
+      </div>
+      <div class="qr-panel">
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          Escanea o descarga este QR para abrir directamente el catálogo web de <strong>NÓMADA CONCEPT</strong>.
+        </p>
+        <input
+          type="text"
+          id="qrUrlInput"
+          class="qr-input"
+          value="https://kimgsaw123-alt.github.io/Nomada-concept/"
+          placeholder="Pega aquí tu enlace https://..."
+        />
+        <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+          <button class="btn-gold" onclick="generateQR()">Actualizar QR</button>
+          <button class="btn-outline" onclick="downloadQR()">Descargar Imagen QR</button>
+        </div>
+        <div>
+          <div id="qrcode"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADMINISTRADOR -->
+    <section id="admin" class="section">
+      <div class="section-header">
+        <h2>PANEL DE ADMINISTRACIÓN</h2>
+      </div>
+
+      <div id="adminLogin" class="admin-panel" style="max-width: 400px; margin: 0 auto; text-align: center;">
+        <p style="margin-bottom: 0.75rem; color: var(--text-muted);">Ingresa el PIN de administrador para gestionar productos.</p>
+        <input type="password" id="adminPinInput" placeholder="PIN (••••)" style="text-align: center; margin-bottom: 0.75rem;" />
+        <button class="btn-gold" style="width: 100%;" onclick="verifyAdmin()">Ingresar</button>
+      </div>
+
+      <div id="adminDashboard" style="display: none;">
+        <div class="admin-panel">
+          <h3 style="color: var(--gold-light); margin-bottom: 0.85rem;">Agregar Nuevo Producto</h3>
+          <div class="form-grid">
+            <input type="text" id="prodName" placeholder="Nombre del producto" />
+            <select id="prodCategory">
+              <option value="Gafas">Gafas &amp; Óptica</option>
+              <option value="Ropa">Ropas &amp; Pijamas</option>
+              <option value="Accesorios">Relojes &amp; Gorras</option>
+            </select>
+            <input type="text" id="prodPrice" placeholder="Precio o referencia (Ej: $45.000)" />
+            <input type="text" id="prodImg" placeholder="URL de imagen (opcional)" />
+          </div>
+          <textarea id="prodDesc" rows="2" placeholder="Descripción breve del producto..." style="margin-bottom: 0.85rem;"></textarea>
+          <button class="btn-gold" onclick="addProduct()">Guardar en Catálogo</button>
+        </div>
+
+        <div class="admin-panel">
+          <h3 style="color: var(--gold-light); margin-bottom: 0.5rem;">Productos Activos</h3>
+          <div id="adminProductList"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const ADMIN_PIN = "1980";
+    const WA_GAFAS = "573106047749";
+    const WA_ROPAS = "573124148578";
+
+    const defaultProducts = [
+      {
+        id: 1,
+        name: "Gafas Polarizadas UV400 Edition",
+        category: "Gafas",
+        price: "Consultar disponibilidad",
+        desc: "Protección solar UV400 con filtro polarizado antirreflejo y marco ultraligero.",
+        icon: "🕶️",
+        img: ""
+      },
+      {
+        id: 2,
+        name: "Montura Oftálmica Ejecutiva",
+        category: "Gafas",
+        price: "Lentes formulados a medida",
+        desc: "Diseño resistente adaptable a lentes antirreflejo, filtro azul y Transitions.",
+        icon: "👓",
+        img: ""
+      },
+      {
+        id: 3,
+        name: "Conjunto Pijama Confort Premium",
+        category: "Ropa",
+        price: "Consultar tallas",
+        desc: "Tela suave de alta frescura y confección duradera para descanso diario.",
+        icon: "👕",
+        img: ""
+      },
+      {
+        id: 4,
+        name: "Camiseta Urbana Nómada Fit",
+        category: "Ropa",
+        price: "Consultar colores",
+        desc: "Algodón de alto gramaje con corte moderno y acabados reforzados.",
+        icon: "🧥",
+        img: ""
+      },
+      {
+        id: 5,
+        name: "Reloj Cronógrafo Negro Mate",
+        category: "Accesorios",
+        price: "Edición Limitada",
+        desc: "Caja metálica resistente con pulso ajustable de estilo táctico-casual.",
+        icon: "⌚",
+        img: ""
+      },
+      {
+        id: 6,
+        name: "Gorra Clásica Nómada Concept",
+        category: "Accesorios",
+        price: "Disponible",
+        desc: "Visera curva estructurada con cierre ajustable de alta resistencia.",
+        icon: "🧢",
+        img: ""
+      }
+    ];
+
+    const reviewsData = [
+      { name: "Carlos M.", rating: 5, score: "5.0", text: "Excelente asesoría con las gafas polarizadas, se nota la diferencia al manejar bajo el sol." },
+      { name: "Laura G.", rating: 5, score: "5.0", text: "Las pijamas tienen una tela súper fresca y llegaron tal cual lo acordado por WhatsApp." },
+      { name: "Andrés R.", rating: 5, score: "5.0", text: "Me ayudaron con la fórmula de mis lentes y quedaron nítidos. Muy cumplidos." },
+      { name: "Tatiana V.", rating: 5, score: "4.9", text: "Muy buena atención en el punto de San Antonio, probé varios estilos hasta elegir el ideal." },
+      { name: "Jhonatan P.", rating: 5, score: "5.0", text: "Compré reloj y gafas en combo y el precio estuvo excelente." },
+      { name: "Mariana S.", rating: 5, score: "4.8", text: "Ropa cómoda y de muy buena calidad, sin duda vuelvo a pedir." },
+      { name: "Felipe O.", rating: 5, score: "5.0", text: "El filtro UV400 sí es real, me hicieron la prueba delante mío antes de llevarlas." },
+      { name: "Diana C.", rating: 5, score: "5.0", text: "Súper recomendados, responden rápido por WhatsApp y tienen variedad." },
+      { name: "Sebastián L.", rating: 5, score: "4.9", text: "Excelente presentación de los productos y atención directa sin rodeos." }
+    ];
+
+    let products = JSON.parse(localStorage.getItem("nomada_products")) || defaultProducts;
+    let currentFilter = "todos";
+
+    function saveProducts() {
+      localStorage.setItem("nomada_products", JSON.stringify(products));
+    }
+
+    function showSection(id, btn) {
+      document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      doc
